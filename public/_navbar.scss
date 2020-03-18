@@ -4,17 +4,46 @@ header {
   justify-content: center;
   text-align: center;
   align-items: center;
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h2 {
+      margin: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+  img {
+    border: solid black 4px;
+    margin-top: 0.25rem;
+  }
 }
-img {
+.banner {
   width: 100%;
-  height: 400px;
+  height: 275px;
   object-fit: cover;
 }
 nav {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  text-align: center;
   align-items: center;
   background: #fff;
-  height: 150px;
+  height: 50px;
   width: 100%;
+  margin: 0px;
+  border: solid lightgray 1px;
+  overflow: hidden;
+  &:hover {
+    cursor: pointer;
+  }
+
+  a {
+    border-right: solid lightgray 1px;
+    padding: 1rem 0.5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
