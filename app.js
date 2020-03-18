@@ -28,7 +28,8 @@ function getTopHeadlines() {
     .then(data => {
             displayTitle("Top News Stories from around the globe")
             const filteredArticles = data.articles.filter(article => article.description)
-            postArticles(filteredArticles);        })
+            postArticles(filteredArticles);        
+        })
     .catch(err => console.log(err))
 }
 
@@ -100,6 +101,14 @@ formButton.addEventListener('click', function(e) {
     validateSubmit();
 })
 
+
+const favoritesLink = document.querySelector('.favorites');
+favoritesLink.addEventListener('click', function() {
+    displayTitle("Saved Articles");
+    const data = JSON.parse(localStorage.getItem("favorites"));
+    postArticles(data)
+})
+
 function validateSubmit() {
     const inputEl = document.querySelector("#searchForm input");
     const value = inputEl.value.trim();
@@ -118,15 +127,39 @@ function validateSubmit() {
 //Load articles on page load
 document.addEventListener('DOMContentLoaded', function() {
     getTopHeadlines();
-    
+    console.log(localStorage.favorites)
 })
 
 function addListeners() {
     const likeButtons = document.querySelectorAll('.heart');
     likeButtons.forEach(button => {
         button.addEventListener('click', function() {
-            console.log("You clicked on a heart")
-            this.querySelector("i").classList.toggle('liked')
+            console.log(storageData)
+            const urlToImage = this.parentElement.querySelector('img').getAttribute('src');
+            const title = this.parentElement.querySelector('h2').innerText;
+            const author = this.parentElement.querySelector('.author').innerText;
+            const description = this.parentElement.querySelector('.description').innerText;
+            const url = this.parentElement.querySelector('a').getAttribute('href');
+            this.querySelector("i").classList.toggle('liked');
+            saveToStorage(urlToImage, title, author, description, url)
+            
         })
     })
 }
+
+let storageData = JSON.parse(localStorage.favorites) || [];
+function saveToStorage(urlToImage, title, author, description, url) {
+    const newArticle = {
+        urlToImage,
+        title,
+        author,
+        description,
+        url
+    };
+    storageData.push(newArticle);
+    localStorage.setItem("favorites", JSON.stringify(storageData));
+    console.log(localStorage.favorites)
+    console.log(storageData)
+
+}
+console.log(storageData)
