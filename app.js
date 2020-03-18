@@ -71,6 +71,7 @@ function postArticles(data, keyword) {
         data.forEach(article => {
             html += `
             <div class="articleCard">
+            <div class="heart"><i class="fas fa-heart"></i></div>
             <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
             <h2>${article.title}</h2>
             <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>
@@ -80,6 +81,7 @@ function postArticles(data, keyword) {
             </div>`;
             articleContainer.innerHTML = html;
         })
+        addListeners();
     };
 }
 
@@ -102,9 +104,7 @@ function validateSubmit() {
     const inputEl = document.querySelector("#searchForm input");
     const value = inputEl.value.trim();
     console.log(value)
-    if (!value) {
-        inputEl.setCustomValidity('Please enter a search query');
-    } else if (value.length < 3) {
+    if (value.length < 3) {
         inputEl.setCustomValidity('Your Search is too short');
     } else if (value.length > 20) {
         inputEl.setCustomValidity('Your search is too long');
@@ -116,4 +116,17 @@ function validateSubmit() {
 }
 
 //Load articles on page load
-document.addEventListener('DOMContentLoaded', getTopHeadlines)
+document.addEventListener('DOMContentLoaded', function() {
+    getTopHeadlines();
+    
+})
+
+function addListeners() {
+    const likeButtons = document.querySelectorAll('.heart');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            console.log("You clicked on a heart")
+            this.querySelector("i").classList.toggle('liked')
+        })
+    })
+}
