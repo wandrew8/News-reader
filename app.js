@@ -18,18 +18,26 @@ links.forEach(link => {
     });
 });
 
-function searchByKeyword(keyword) {
-    const query = `q=${keyword}`;
-    fetch(searchUrl + query + "&" + apiKey)
+const homePage = document.querySelector('.logo');
+homePage.addEventListener('click', getTopHeadlines);
+
+function getTopHeadlines() {
+    fetch("http://newsapi.org/v2/top-headlines?country=us" + apiKey)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => {
+            const filteredArticles = data.articles.filter(article => article.description)
+            postArticles(filteredArticles);        })
+    .catch(err => console.log(err))
 }
 
-function searchById(id) {
-    const searchUrl = "https://content.guardianapis.com/";
-    fetch(searchUrl + id + "?" + apiKey)
+function searchByKeyword(keyword) {
+    fetch("http://newsapi.org/v2/everything?q=" + keyword + apiKey)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => {
+            const filteredArticles = data.articles.filter(article => article.description)
+            postArticles(filteredArticles, keyword);
+        })
+    .catch(err => console.log(err))
 }
 
 function searchBySection(section) {
@@ -40,28 +48,36 @@ function searchBySection(section) {
         const imageBanner = document.querySelector('.bannerImage')
         imageBanner.setAttribute("src", images[section]);
         const filteredArticles = data.articles.filter(article => article.description)
-
         postArticles(filteredArticles);
         displayTitle(section);
     })
+    .catch(err => console.log(err))
+
 }
 
-function postArticles(data) {
-    console.log(data)
-    let html = ''
+function postArticles(data, keyword) {
+    let html = '';
     const articleContainer = document.querySelector('.articles');
-    data.forEach(article => {
-        html += `
+    const errorContainer = document.querySelector('.errors');
+    if (data.length === 0) {
+        const error = `<h2 class="error">Sorry we couldn't find any articles for ${keyword}</h2>`;
+        errorContainer.innerHTML = error;
+        articleContainer.innerHTML = '';
+    } else {
+        errorContainer.innerHTML = '';
+        data.forEach(article => {
+            html += `
             <div class="articleCard">
-                <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
-                <h2>${article.title}</h2>
-                <p class="author">${article.author ? article.author: ''}</p>
-                <hr>
-                <p class="description">${article.description}</p>
-                <a href="${article.url}">Read More...</a>
+            <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
+            <h2>${article.title}</h2>
+            <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>
+            <hr>
+            <p class="description">${article.description}</p>
+            <a href="${article.url}">Read More...</a>
             </div>`;
-        articleContainer.innerHTML = html;
-    })
+            articleContainer.innerHTML = html;
+        })
+    };
 }
 
 function displayTitle(text) {
@@ -72,4 +88,29 @@ function displayTitle(text) {
     }, 1000)
 }
 
+const formButton = document.querySelector('.submitForm');
+formButton.addEventListener('click', function(e) {
+    console.log('clicked')
+    e.preventDefault();
+    validateSubmit();
+})
 
+function validateSubmit() {
+    const inputEl = document.querySelector("#searchForm input");
+    const value = inputEl.value.trim();
+    console.log(value)
+    if (!value) {
+        inputEl.setCustomValidity('Please enter a search query');
+    } else if (value.length < 3) {
+        inputEl.setCustomValidity('Your Search is too short');
+    } else if (value.length > 20) {
+        inputEl.setCustomValidity('Your search is too long');
+    } else {
+        inputEl.setCustomValidity('');
+        searchByKeyword(inputEl.value.trim());
+        inputEl.value = '';
+    }
+}
+
+//Load articles on page load
+document.addEventListener('DOMContentLoaded', getTopHeadlines)

@@ -28,9 +28,9 @@
         <h1 class="bannerTitle">
           Search the top news article from around the world
         </h1>
-        <form>
-          <input type="text" required placeholder="Search by topic" />
-          <button type="submit">Submit</button>
+        <form id="searchForm">
+          <input type="text" name="search" placeholder="Search by topic" />
+          <button class="submitForm" type="submit">Submit</button>
         </form>
       </div>
     </div>
@@ -44,6 +44,7 @@
     </nav>
     <main>
       <h1 class="title">Top Articles</h1>
+      <div class="errors"></div>
       <div class="articles"></div>
     </main>
   </body>

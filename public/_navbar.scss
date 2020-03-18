@@ -9,6 +9,9 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover {
+      cursor: pointer;
+    }
     h2 {
       margin: 1rem;
       text-transform: uppercase;
@@ -35,7 +38,6 @@ nav {
   &:hover {
     cursor: pointer;
   }
-
   a {
     border-right: solid lightgray 1px;
     padding: 1rem 0.5rem;

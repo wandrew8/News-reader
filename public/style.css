@@ -11,6 +11,9 @@ header .logo {
   justify-content: center;
   align-items: center;
 }
+header .logo:hover {
+  cursor: pointer;
+}
 header .logo h2 {
   margin: 1rem;
   text-transform: uppercase;
@@ -115,6 +118,10 @@ nav a:hover {
   text-align: center;
   display: block;
   padding: 0px 0px 10px 0px;
+}
+
+.error {
+  text-align: center;
 }
 
 body {
