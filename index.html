@@ -16,16 +16,24 @@
         <img src="public/newsLogo.png" height="40" width="40" alt="" />
         <h2>News API</h2>
       </div>
-      <form>
-        <input type="text" required placeholder="Search by topic" />
-        <button type="submit">Submit</button>
-      </form>
+      <a>Favorites</a>
     </header>
-    <img
-      class="banner"
-      src="https://images.unsplash.com/photo-1518672703296-e3022657f7b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-      alt=""
-    />
+    <div class="banner">
+      <img
+        class="bannerImage"
+        src="https://images.unsplash.com/photo-1518672703296-e3022657f7b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+        alt=""
+      />
+      <div class="overlay">
+        <h1 class="bannerTitle">
+          Search the top news article from around the world
+        </h1>
+        <form>
+          <input type="text" required placeholder="Search by topic" />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
     <nav>
       <a class="link" id="health">Health</a>
       <a class="link" id="business">Business</a>
@@ -35,7 +43,7 @@
       <a class="link" id="sports">Sports</a>
     </nav>
     <main>
-      <h1>News Reporter</h1>
+      <h1 class="title">Top Articles</h1>
       <div class="articles"></div>
     </main>
   </body>

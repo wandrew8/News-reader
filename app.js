@@ -1,5 +1,6 @@
 const searchUrl = "business&apiKey=1607dbe0f68548328a153148fe3b9431";
 const apiKey = `&apikey=${api_key}`;
+const title = document.querySelector('.bannerTitle')
 
 const images = {
     health: "https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
@@ -36,9 +37,12 @@ function searchBySection(section) {
     fetch(searchUrl + section + apiKey)
     .then(response => response.json())
     .then(data => {
-        const imageBanner = document.querySelector('.banner')
+        const imageBanner = document.querySelector('.bannerImage')
         imageBanner.setAttribute("src", images[section]);
-        postArticles(data.articles)
+        const filteredArticles = data.articles.filter(article => article.description)
+
+        postArticles(filteredArticles);
+        displayTitle(section);
     })
 }
 
@@ -60,5 +64,12 @@ function postArticles(data) {
     })
 }
 
+function displayTitle(text) {
+    title.classList.add('hidden')
+    setTimeout(function() {
+        title.textContent = `${text.toUpperCase()} NEWS`;
+        title.classList.remove('hidden');
+    }, 1000)
+}
 
 

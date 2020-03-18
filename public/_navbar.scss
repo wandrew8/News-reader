@@ -4,6 +4,7 @@ header {
   justify-content: center;
   text-align: center;
   align-items: center;
+  border-bottom: solid 1px lightgray;
   .logo {
     display: flex;
     justify-content: center;
@@ -19,11 +20,7 @@ header {
     margin-top: 0.25rem;
   }
 }
-.banner {
-  width: 100%;
-  height: 275px;
-  object-fit: cover;
-}
+
 nav {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -44,6 +41,29 @@ nav {
     padding: 1rem 0.5rem;
     &:hover {
       cursor: pointer;
+    }
+  }
+}
+.banner {
+  position: relative;
+  .bannerImage {
+    width: 100%;
+    height: 275px;
+    object-fit: cover;
+  }
+  .overlay {
+    position: absolute;
+    top: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    .bannerTitle {
+      font-size: 3rem;
+      color: #fff;
+      transition: ease-in 500ms;
     }
   }
 }
