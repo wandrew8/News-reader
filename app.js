@@ -1,6 +1,7 @@
 const searchUrl = "business&apiKey=1607dbe0f68548328a153148fe3b9431";
 const apiKey = `&apikey=${api_key}`;
 const title = document.querySelector('.bannerTitle')
+const imageBanner = document.querySelector('.bannerImage')
 
 const images = {
     health: "https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
@@ -25,6 +26,7 @@ function getTopHeadlines() {
     fetch("http://newsapi.org/v2/top-headlines?country=us" + apiKey)
     .then(response => response.json())
     .then(data => {
+            displayTitle("Top News Stories from around the globe")
             const filteredArticles = data.articles.filter(article => article.description)
             postArticles(filteredArticles);        })
     .catch(err => console.log(err))
@@ -35,6 +37,8 @@ function searchByKeyword(keyword) {
     .then(response => response.json())
     .then(data => {
             const filteredArticles = data.articles.filter(article => article.description)
+            imageBanner.setAttribute("src", "https://images.unsplash.com/photo-1518672703296-e3022657f7b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+            displayTitle("Search By Topic")
             postArticles(filteredArticles, keyword);
         })
     .catch(err => console.log(err))
@@ -45,11 +49,10 @@ function searchBySection(section) {
     fetch(searchUrl + section + apiKey)
     .then(response => response.json())
     .then(data => {
-        const imageBanner = document.querySelector('.bannerImage')
         imageBanner.setAttribute("src", images[section]);
         const filteredArticles = data.articles.filter(article => article.description)
         postArticles(filteredArticles);
-        displayTitle(section);
+        displayTitle(`${section} news`);
     })
     .catch(err => console.log(err))
 
@@ -58,13 +61,13 @@ function searchBySection(section) {
 function postArticles(data, keyword) {
     let html = '';
     const articleContainer = document.querySelector('.articles');
-    const errorContainer = document.querySelector('.errors');
+    const messageContainer = document.querySelector('.message');
     if (data.length === 0) {
-        const error = `<h2 class="error">Sorry we couldn't find any articles for ${keyword}</h2>`;
-        errorContainer.innerHTML = error;
+        const message = `<h2 class="mess">Sorry we couldn't find any articles for ${keyword}</h2>`;
+        messageContainer.innerHTML = message;
         articleContainer.innerHTML = '';
     } else {
-        errorContainer.innerHTML = '';
+        messageContainer.innerHTML = keyword ? `<p class="mess">Search results for: ${keyword}` : '';
         data.forEach(article => {
             html += `
             <div class="articleCard">
@@ -83,7 +86,7 @@ function postArticles(data, keyword) {
 function displayTitle(text) {
     title.classList.add('hidden')
     setTimeout(function() {
-        title.textContent = `${text.toUpperCase()} NEWS`;
+        title.textContent = `${text.toUpperCase()}`;
         title.classList.remove('hidden');
     }, 1000)
 }
