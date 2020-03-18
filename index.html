@@ -6,7 +6,34 @@
     <link rel="stylesheet" href="./public/style.css" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <div class="logo">
+        Logo Goes Here
+      </div>
+      <form>
+        <input type="text" required placeholder="Search by topic" />
+        <button type="submit">Submit</button>
+      </form>
+    </header>
+    <img
+      class="banner"
+      src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"
+      alt=""
+    />
+    <nav>
+      <a class="link" id="health">Health</a>
+      <a class="link" id="business">Business</a>
+      <a class="link" id="technology">Tech</a>
+      <a class="link" id="science">Science</a>
+      <a class="link" id="entertainment">Entertainment</a>
+      <a class="link" id="sports">Sports</a>
+    </nav>
+    <main>
+      <h1>News Reporter</h1>
+      <div class="articles"></div>
+    </main>
+  </body>
   <script src="api_key.js"></script>
   <script src="app.js"></script>
 </html>
