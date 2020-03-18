@@ -1,3 +1,4 @@
+let storageData = JSON.parse(localStorage.favorites) || [];
 const searchUrl = "business&apiKey=1607dbe0f68548328a153148fe3b9431";
 const apiKey = `&apikey=${api_key}`;
 const title = document.querySelector('.bannerTitle')
@@ -64,15 +65,16 @@ function postArticles(data, keyword) {
     const articleContainer = document.querySelector('.articles');
     const messageContainer = document.querySelector('.message');
     if (data.length === 0) {
-        const message = `<h2 class="mess">Sorry we couldn't find any articles for ${keyword}</h2>`;
-        messageContainer.innerHTML = message;
+        const message = `<h2 class="mess">Sorry we couldn't find any articles for "${keyword}"</h2>`;
+        const messageTwo = `<h2 class="mess">You have no saved articles</h2>`;
+        messageContainer.innerHTML = `${keyword ? message : messageTwo}`;
         articleContainer.innerHTML = '';
     } else {
-        messageContainer.innerHTML = keyword ? `<p class="mess">Search results for: ${keyword}` : '';
+        messageContainer.innerHTML = keyword ? `<p class="mess">Search results for "${keyword}"` : '';
         data.forEach(article => {
             html += `
             <div class="articleCard">
-            <div class="heart">${article.saved ? `<i class="fas fa-trash-alt"></i>`: `<i class="fas fa-heart"></i>`}</div>
+            <div class="heart">${article.saved ? `<i class="fas delete fa-trash-alt"></i>`: `<i class="fas save fa-heart"></i>`}</div>
             <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
             <h2>${article.title}</h2>
             <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>
@@ -134,20 +136,22 @@ function addListeners() {
     const likeButtons = document.querySelectorAll('.heart');
     likeButtons.forEach(button => {
         button.addEventListener('click', function() {
-            console.log(storageData)
-            const urlToImage = this.parentElement.querySelector('img').getAttribute('src');
-            const title = this.parentElement.querySelector('h2').innerText;
-            const author = this.parentElement.querySelector('.author').innerText;
-            const description = this.parentElement.querySelector('.description').innerText;
             const url = this.parentElement.querySelector('a').getAttribute('href');
-            this.querySelector("i").classList.toggle('liked');
-            saveToStorage(urlToImage, title, author, description, url)
+            if (Array.from(button.querySelector("i").classList).includes('save')) {
+                const urlToImage = this.parentElement.querySelector('img').getAttribute('src');
+                const title = this.parentElement.querySelector('h2').innerText;
+                const author = this.parentElement.querySelector('.author').innerText;
+                const description = this.parentElement.querySelector('.description').innerText;
+                this.querySelector("i").classList.toggle('liked');
+                saveToStorage(urlToImage, title, author, description, url)
+            } else {
+                removeFromStorage(url);
+            }
             
         })
     })
 }
 
-let storageData = JSON.parse(localStorage.favorites) || [];
 function saveToStorage(urlToImage, title, author, description, url, saved) {
     const newArticle = {
         urlToImage,
@@ -162,6 +166,13 @@ function saveToStorage(urlToImage, title, author, description, url, saved) {
         storageData.push(newArticle);
         localStorage.setItem("favorites", JSON.stringify(storageData));
     }
-    
-
 }
+
+function removeFromStorage(id) {
+    console.log(`You will delete ${id} from your collection`);
+    storageData = storageData.filter(item => item.url !== id);
+    localStorage.setItem("favorites", JSON.stringify(storageData));
+    const data = JSON.parse(localStorage.getItem("favorites"));
+    postArticles(data)
+}
+
