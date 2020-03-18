@@ -80,7 +80,7 @@ function postArticles(data, keyword) {
             <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>
             <hr>
             <p class="description">${article.description}</p>
-            <a href="${article.url}">Read More...</a>
+            <a href="${article.url}" target="_blank" >Read More...</a>
             </div>`;
             articleContainer.innerHTML = html;
         })
@@ -142,7 +142,11 @@ function addListeners() {
                 const title = this.parentElement.querySelector('h2').innerText;
                 const author = this.parentElement.querySelector('.author').innerText;
                 const description = this.parentElement.querySelector('.description').innerText;
-                this.querySelector("i").classList.toggle('liked');
+                const heart = this.querySelector("i")
+                heart.classList.add('liked');
+                setTimeout(function() { 
+                    heart.classList.remove('liked')
+                },500)
                 saveToStorage(urlToImage, title, author, description, url)
             } else {
                 removeFromStorage(url);

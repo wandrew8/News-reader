@@ -60,11 +60,12 @@
       padding: 10px;
       color: rgba(255, 255, 255, 0.4);
       font-size: 1.5rem;
-      transition: ease-in 300ms;
+      transition: ease-in-out 200ms;
     }
     .liked {
       color: #ff7675;
-      font-size: 1.6rem;
+      transform: scale(5);
+      z-index: 10;
     }
   }
 }
