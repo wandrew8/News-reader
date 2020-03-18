@@ -42,9 +42,11 @@ nav:hover {
 nav a {
   border-right: solid lightgray 1px;
   padding: 1rem 0.5rem;
+  transition: ease-in-out 300ms;
 }
 nav a:hover {
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 .banner {
@@ -80,7 +82,11 @@ nav a:hover {
 }
 .articles .articleCard {
   position: relative;
-  border: solid #444 2px;
+  border: solid lightgray 1px;
+  transition: 200ms ease-in;
+}
+.articles .articleCard:hover {
+  box-shadow: 5px 5px 5px lightgray;
 }
 .articles .articleCard img {
   width: 100%;

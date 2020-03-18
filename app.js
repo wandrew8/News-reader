@@ -72,7 +72,7 @@ function postArticles(data, keyword) {
         data.forEach(article => {
             html += `
             <div class="articleCard">
-            <div class="heart"><i class="fas fa-heart"></i></div>
+            <div class="heart">${article.saved ? `<i class="fas fa-trash-alt"></i>`: `<i class="fas fa-heart"></i>`}</div>
             <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
             <h2>${article.title}</h2>
             <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>
@@ -148,18 +148,20 @@ function addListeners() {
 }
 
 let storageData = JSON.parse(localStorage.favorites) || [];
-function saveToStorage(urlToImage, title, author, description, url) {
+function saveToStorage(urlToImage, title, author, description, url, saved) {
     const newArticle = {
         urlToImage,
         title,
         author,
         description,
-        url
+        url,
+        saved: true
     };
-    storageData.push(newArticle);
-    localStorage.setItem("favorites", JSON.stringify(storageData));
-    console.log(localStorage.favorites)
-    console.log(storageData)
+    const idArray = storageData.map(item => item.url)
+    if (!idArray.includes(url)) {
+        storageData.push(newArticle);
+        localStorage.setItem("favorites", JSON.stringify(storageData));
+    }
+    
 
 }
-console.log(storageData)

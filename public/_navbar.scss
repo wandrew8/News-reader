@@ -41,8 +41,10 @@ nav {
   a {
     border-right: solid lightgray 1px;
     padding: 1rem 0.5rem;
+    transition: ease-in-out 300ms;
     &:hover {
       cursor: pointer;
+      letter-spacing: 1px;
     }
   }
 }
