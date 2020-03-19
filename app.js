@@ -25,7 +25,7 @@ const homePage = document.querySelector('.logo');
 homePage.addEventListener('click', getTopHeadlines);
 
 function getTopHeadlines() {
-    fetch("http://newsapi.org/v2/top-headlines?country=us" + apiKey)
+    fetch("http://newsapi.org/v2/top-headlines?country=us&sortBy=popularity" + apiKey)
     .then(response => response.json())
     .then(data => {
             displayTitle("Top News Stories from around the globe")
@@ -36,7 +36,7 @@ function getTopHeadlines() {
 }
 
 function searchByKeyword(keyword) {
-    fetch("http://newsapi.org/v2/everything?q=" + keyword + apiKey)
+    fetch("http://newsapi.org/v2/everything?language=en&q=" + keyword + apiKey)
     .then(response => response.json())
     .then(data => {
             const filteredArticles = data.articles.filter(article => article.description)
@@ -65,7 +65,7 @@ function postArticles(data, keyword) {
     let html = '';
     const articleContainer = document.querySelector('.articles');
     const messageContainer = document.querySelector('.message');
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
         const message = `<h2 class="mess">Sorry we couldn't find any articles for "${keyword}"</h2>`;
         const messageTwo = `<h2 class="mess">You have no saved articles</h2>`;
         messageContainer.innerHTML = `${keyword ? message : messageTwo}`;
