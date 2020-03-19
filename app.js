@@ -75,7 +75,7 @@ function postArticles(data, keyword) {
         data.forEach(article => {
             html += `
             <div class="articleCard">
-            <div class="heart">${article.saved ? `<i class="fas delete fa-trash-alt"></i>`: `<i class="fas liked save fa-heart"></i>`}</div>
+            <div class="heart">${article.saved ? `<i class="fas delete fa-trash-alt"></i>`: `<i class="fas save fa-heart"></i>`}</div>
             <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
             <h2>${article.title}</h2>
             <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>

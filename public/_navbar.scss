@@ -25,6 +25,10 @@ header {
   .favorites {
     &:hover {
       cursor: pointer;
+      color: black;
+    }
+    i {
+      margin-right: 0.5rem;
     }
   }
 }
@@ -73,6 +77,26 @@ nav {
       font-size: 3rem;
       color: #fff;
       transition: ease-in 500ms;
+    }
+    button {
+      color: #fff;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.5rem 2rem;
+      border-radius: 1rem;
+      border: solid 1px lightgray;
+      transition: 150ms ease-in;
+      &:hover {
+        background: rgba(255, 255, 255, 0.6);
+        color: #444;
+        border: solid 1px rgba(0, 0, 0, 0.7);
+      }
+    }
+    input {
+      height: 1.5rem;
+      width: 18rem;
+      border-radius: 0.25rem;
+      margin: 2rem 0.5rem;
+      padding: 0rem 0.5rem;
     }
   }
 }
