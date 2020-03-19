@@ -53,8 +53,9 @@ function searchBySection(section) {
     .then(response => response.json())
     .then(data => {
         imageBanner.setAttribute("src", images[section]);
-        const filteredArticles = data.articles.filter(article => article.description)
+        const filteredArticles = data.articles.filter(article => article.description && !article.description.includes('<p>'))
         postArticles(filteredArticles);
+        console.log(filteredArticles)
         displayTitle(`${section} news`);
     })
     .catch(err => console.log(err))
@@ -62,6 +63,7 @@ function searchBySection(section) {
 }
 
 function postArticles(data, keyword) {
+    console.log(data)
     let html = '';
     const articleContainer = document.querySelector('.articles');
     const messageContainer = document.querySelector('.message');
@@ -77,6 +79,7 @@ function postArticles(data, keyword) {
             <div class="articleCard">
             <div class="heart">${article.saved ? `<i class="fas delete fa-trash-alt"></i>`: `<i class="fas save fa-heart"></i>`}</div>
             <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
+            <div class="date">${article.publishedAt ? formatDate(article.publishedAt) : ''}</div>
             <h2>${article.title}</h2>
             <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>
             <hr>
@@ -95,6 +98,12 @@ function displayTitle(text) {
         title.textContent = `${text.toUpperCase()}`;
         title.classList.remove('hidden');
     }, 1000)
+}
+
+function formatDate(date) {
+    const newDate = new Date(date);
+    const dateArray = newDate.toString().split(' ');
+    return `${dateArray[1]} ${dateArray[2]} ${dateArray[3]}`
 }
 
 const formButton = document.querySelector('.submitForm');
@@ -162,13 +171,14 @@ function addListeners() {
     })
 }
 
-function saveToStorage(urlToImage, title, author, description, url, saved) {
+function saveToStorage(urlToImage, title, author, description, url, date, saved) {
     const newArticle = {
         urlToImage,
         title,
         author,
         description,
         url,
+        date,
         saved: true
     };
     const idArray = storageData.map(item => item.url)
