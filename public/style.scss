@@ -5,6 +5,7 @@ body {
   font-family: "Playfair Display", serif;
   margin: 0;
   padding: 0;
+  position: relative;
   .title {
     text-transform: uppercase;
     font-weight: 300;
@@ -14,5 +15,21 @@ body {
   .hidden {
     opacity: 0;
     transform: translate(-20px);
+  }
+  .modal {
+    height: 100px;
+    width: 500px;
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border-radius: 2rem;
+    transition: ease-in-out 500ms;
   }
 }

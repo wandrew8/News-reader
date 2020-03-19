@@ -22,6 +22,11 @@ header {
     border: solid black 4px;
     margin-top: 0.25rem;
   }
+  .favorites {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 nav {

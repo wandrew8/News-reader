@@ -1,8 +1,9 @@
 let storageData = JSON.parse(localStorage.favorites) || [];
 const searchUrl = "business&apiKey=1607dbe0f68548328a153148fe3b9431";
 const apiKey = `&apikey=${api_key}`;
-const title = document.querySelector('.bannerTitle')
-const imageBanner = document.querySelector('.bannerImage')
+const title = document.querySelector('.bannerTitle');
+const imageBanner = document.querySelector('.bannerImage');
+const modal = document.querySelector('.modal');
 
 const images = {
     health: "https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
@@ -74,7 +75,7 @@ function postArticles(data, keyword) {
         data.forEach(article => {
             html += `
             <div class="articleCard">
-            <div class="heart">${article.saved ? `<i class="fas delete fa-trash-alt"></i>`: `<i class="fas save fa-heart"></i>`}</div>
+            <div class="heart">${article.saved ? `<i class="fas delete fa-trash-alt"></i>`: `<i class="fas liked save fa-heart"></i>`}</div>
             <img src="${article.urlToImage ? article.urlToImage : "https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"}" alt="${article.title}">
             <h2>${article.title}</h2>
             <p class="author">${article.author && article.author.length < 30 ? article.author: ''}</p>
@@ -142,8 +143,13 @@ function addListeners() {
                 const title = this.parentElement.querySelector('h2').innerText;
                 const author = this.parentElement.querySelector('.author').innerText;
                 const description = this.parentElement.querySelector('.description').innerText;
-                const heart = this.querySelector("i")
+                const heart = this.querySelector("i");
+                modal.textContent = 'Article Saved to Favorites'
+                modal.classList.remove('hidden');
                 heart.classList.add('liked');
+                setTimeout(function() {
+                    modal.classList.add('hidden');
+                }, 1500)
                 setTimeout(function() { 
                     heart.classList.remove('liked')
                 },500)
@@ -173,10 +179,14 @@ function saveToStorage(urlToImage, title, author, description, url, saved) {
 }
 
 function removeFromStorage(id) {
-    console.log(`You will delete ${id} from your collection`);
     storageData = storageData.filter(item => item.url !== id);
     localStorage.setItem("favorites", JSON.stringify(storageData));
     const data = JSON.parse(localStorage.getItem("favorites"));
+    modal.textContent = 'Article Removed from Favorites'
+    modal.classList.remove('hidden');
+    setTimeout(function() {
+        modal.classList.add('hidden');
+    }, 1000)
     postArticles(data)
 }
 
