@@ -1,4 +1,4 @@
-let storageData = JSON.parse(localStorage.favorites) || [];
+let storageData = localStorage.favorites ? JSON.parse(localStorage.favorites) : [];
 const searchUrl = "business&apiKey=1607dbe0f68548328a153148fe3b9431";
 const apiKey = `&apikey=${api_key}`;
 const title = document.querySelector('.bannerTitle');
