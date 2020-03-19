@@ -25,7 +25,7 @@ const homePage = document.querySelector('.logo');
 homePage.addEventListener('click', getTopHeadlines);
 
 function getTopHeadlines() {
-    fetch("http://newsapi.org/v2/top-headlines?country=us&sortBy=popularity" + apiKey)
+    fetch("https://newsapi.org/v2/top-headlines?country=us&sortBy=popularity" + apiKey)
     .then(response => response.json())
     .then(data => {
             displayTitle("Top News Stories from around the globe")
@@ -36,7 +36,7 @@ function getTopHeadlines() {
 }
 
 function searchByKeyword(keyword) {
-    fetch("http://newsapi.org/v2/everything?language=en&q=" + keyword + apiKey)
+    fetch("https://newsapi.org/v2/everything?language=en&q=" + keyword + apiKey)
     .then(response => response.json())
     .then(data => {
             const filteredArticles = data.articles.filter(article => article.description)
@@ -48,7 +48,7 @@ function searchByKeyword(keyword) {
 }
 
 function searchBySection(section) {
-    const searchUrl = "http://newsapi.org/v2/top-headlines?country=us&category=";
+    const searchUrl = "https://newsapi.org/v2/top-headlines?country=us&category=";
     fetch(searchUrl + section + apiKey)
     .then(response => response.json())
     .then(data => {
