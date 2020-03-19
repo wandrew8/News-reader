@@ -8,6 +8,7 @@
     position: relative;
     border: solid lightgray 1px;
     transition: 200ms ease-in;
+    border-radius: 0.25rem;
     &:hover {
       box-shadow: 5px 5px 5px lightgray;
     }
@@ -19,6 +20,7 @@
       height: 150px;
       object-fit: cover;
       border-bottom: solid 1px lightgray;
+      border-radius: 0.25rem 0.25rem 0rem 0rem;
     }
     h2 {
       height: 95px;

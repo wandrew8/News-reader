@@ -6,6 +6,7 @@ const imageBanner = document.querySelector('.bannerImage');
 const modal = document.querySelector('.modal');
 
 const images = {
+    homePage: "https://images.unsplash.com/photo-1518672703296-e3022657f7b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
     health: "https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
     business: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
     technology: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
@@ -28,6 +29,7 @@ function getTopHeadlines() {
     fetch("https://newsapi.org/v2/top-headlines?country=us&sortBy=popularity" + apiKey)
     .then(response => response.json())
     .then(data => {
+            imageBanner.setAttribute("src", images["homePage"]);
             displayTitle("Top News Stories from around the globe")
             const filteredArticles = data.articles.filter(article => article.description)
             postArticles(filteredArticles);        
@@ -103,7 +105,7 @@ function displayTitle(text) {
 function formatDate(date) {
     const newDate = new Date(date);
     const dateArray = newDate.toString().split(' ');
-    return `${dateArray[1]} ${dateArray[2]} ${dateArray[3]}`
+    return `${dateArray[1]} ${dateArray[2]}, ${dateArray[3]}`
 }
 
 const formButton = document.querySelector('.submitForm');
@@ -117,6 +119,7 @@ formButton.addEventListener('click', function(e) {
 const favoritesLink = document.querySelector('.favorites');
 favoritesLink.addEventListener('click', function() {
     displayTitle("Saved Articles");
+    imageBanner.setAttribute("src", images["homePage"]);
     const data = JSON.parse(localStorage.getItem("favorites"));
     postArticles(data)
 })
