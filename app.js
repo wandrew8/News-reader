@@ -127,8 +127,12 @@ function validateSubmit() {
     const errMess = document.getElementById('errorMess');
     const inputEl = document.querySelector("#searchForm input");
     const value = inputEl.value.trim();
-    console.log(value)
-    if (value.length < 3) {
+    const myRegex = /[a-zA-Z0-9]+/;
+    console.log(typeof(value))
+    if (!myRegex.test(value)) {
+        errMess.textContent = 'Your seach may only contain letters and numbers';
+        inputEl.classList.add('error');
+    } else if (value.length < 3) {
         errMess.textContent = 'Your search query is too short';
         inputEl.classList.add('error')
     } else if (value.length > 20) {
