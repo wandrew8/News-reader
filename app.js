@@ -110,7 +110,6 @@ function formatDate(date) {
 
 const formButton = document.querySelector('.submitForm');
 formButton.addEventListener('click', function(e) {
-    console.log('clicked')
     e.preventDefault();
     validateSubmit();
 })
@@ -125,15 +124,19 @@ favoritesLink.addEventListener('click', function() {
 })
 
 function validateSubmit() {
+    const errMess = document.getElementById('errorMess');
     const inputEl = document.querySelector("#searchForm input");
     const value = inputEl.value.trim();
     console.log(value)
     if (value.length < 3) {
-        inputEl.setCustomValidity('Your Search is too short');
+        errMess.textContent = 'Your search query is too short';
+        inputEl.classList.add('error')
     } else if (value.length > 20) {
-        inputEl.setCustomValidity('Your search is too long');
+        errMess.textContent = 'You search query is too long';
+        inputEl.classList.add('error');
     } else {
-        inputEl.setCustomValidity('');
+        inputEl.classList.remove('error')
+        errMess.textContent = ''
         searchByKeyword(inputEl.value.trim());
         inputEl.value = '';
     }

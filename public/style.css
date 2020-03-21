@@ -99,6 +99,12 @@ nav a:hover {
   margin: 2rem 0.5rem;
   padding: 0rem 0.5rem;
 }
+.banner .overlay #errorMess {
+  color: #fff;
+}
+.banner .overlay .error {
+  border: solid #ff7675 1px;
+}
 
 .articles {
   margin: 2rem;
@@ -205,7 +211,6 @@ body .title {
 body .hidden {
   opacity: 0;
   transform: translate(-20px);
-  display: none;
 }
 body .modal {
   height: 100px;
