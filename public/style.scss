@@ -32,6 +32,14 @@ body {
     border-radius: 2rem;
     transition: ease-in-out 500ms;
   }
+  .credit {
+    color: lightgray;
+    text-align: center;
+    font-size: 12px;
+    a {
+      color: lightgray;
+    }
+  }
 }
 
 @import "media";

@@ -229,6 +229,14 @@ body .modal {
   border-radius: 2rem;
   transition: ease-in-out 500ms;
 }
+body .credit {
+  color: lightgray;
+  text-align: center;
+  font-size: 12px;
+}
+body .credit a {
+  color: lightgray;
+}
 
 @media all and (min-width: 480px) and (max-width: 768px) {
   body nav {
