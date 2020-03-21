@@ -75,6 +75,7 @@ nav a:hover {
   background: rgba(0, 0, 0, 0.5);
 }
 .banner .overlay .bannerTitle {
+  text-align: center;
   font-size: 3rem;
   color: #fff;
   transition: ease-in 500ms;
@@ -227,6 +228,57 @@ body .modal {
   font-size: 1.5rem;
   border-radius: 2rem;
   transition: ease-in-out 500ms;
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  body nav {
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+    border: none;
+  }
+  body nav a {
+    border: solid lightgray 1px;
+  }
+  body .articles {
+    margin: 0rem;
+  }
+  body .banner .overlay .bannerTitle {
+    font-size: 1.5rem;
+    margin-top: 5rem;
+    text-align: center;
+    padding: 0rem 1rem;
+  }
+}
+@media all and (max-width: 480px) {
+  body nav {
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+    border: none;
+  }
+  body nav a {
+    border: solid lightgray 1px;
+  }
+  body #searchForm input {
+    width: 10rem;
+  }
+  body #searchForm button {
+    padding: 0.5rem 1rem;
+  }
+  body .logo {
+    height: 80px;
+  }
+  body .logo h2 {
+    font-size: 10px;
+  }
+  body .articles {
+    margin: 0rem;
+  }
+  body .banner .overlay .bannerTitle {
+    font-size: 1.5rem;
+    margin-top: 5rem;
+    text-align: center;
+    padding: 0rem 1rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

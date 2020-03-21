@@ -1,0 +1,71 @@
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+  body {
+    nav {
+      grid-template-columns: repeat(3, 1fr);
+      height: 100%;
+      border: none;
+      a {
+        border: solid lightgray 1px;
+      }
+    }
+    .articles {
+      margin: 0rem;
+    }
+    .banner {
+      .overlay {
+        .bannerTitle {
+          font-size: 1.5rem;
+          margin-top: 5rem;
+          text-align: center;
+          padding: 0rem 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 480px) {
+  body {
+    nav {
+      grid-template-columns: repeat(3, 1fr);
+      height: 100%;
+      border: none;
+      a {
+        border: solid lightgray 1px;
+      }
+    }
+    #searchForm {
+      input {
+        width: 10rem;
+      }
+      button {
+        padding: 0.5rem 1rem;
+      }
+    }
+    .logo {
+      height: 80px;
+      h2 {
+        font-size: 10px;
+      }
+    }
+    .articles {
+      margin: 0rem;
+    }
+    .banner {
+      .overlay {
+        .bannerTitle {
+          font-size: 1.5rem;
+          margin-top: 5rem;
+          text-align: center;
+          padding: 0rem 1rem;
+        }
+      }
+    }
+  }
+}
